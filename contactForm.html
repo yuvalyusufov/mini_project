@@ -61,8 +61,12 @@
       showContacts();
 
       $.validator.addMethod('validateId', function(value, element){
-        
-      });
+        //this.optional(element);
+        if (value != '313600645') {
+          return false;
+        }
+        return true;
+      },"Fuck this messsage!");
 
       $("#contact-form").validate({
         errorClass: "error is-invalid",
@@ -86,7 +90,8 @@
             required: true,
             maxlength: 9,
             minlength: 9,
-            number: true
+            number: true,
+            validateId: true
           }
         },
         messages: {
@@ -121,12 +126,14 @@
               phone: phone,
               id: id
             },
+            dataType: "JSON",
             success: function (data) {
               console.log(data);
               showContacts();
+              form.reset();
             }
           });
-          form.reset();
+
           
         }
 
